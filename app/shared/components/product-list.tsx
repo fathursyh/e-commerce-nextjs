@@ -5,21 +5,27 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { HOST_URL } from "@/app/utils/helper";
 import { PaginationResponse, Product } from "@/app/shared/models";
+import { catchErrorResponse } from "@/app/utils/error";
 
 export default function ProductLists() {
-    const {data: products} = useSuspenseQuery<PaginationResponse<Product>>({queryKey: ["posts"], queryFn: getProducts});
+    const { data: products } = useSuspenseQuery<PaginationResponse<Product>>({
+        queryKey: ["posts"],
+        queryFn: getProducts,
+        retryOnMount: true,
+    });
+    if (!products.success) return null;
     return (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
 
-                { (
-                    products?.data.map((product: Product) => (
-                        <ProductCard
-                            key={ product.id }
-                            product={ product }
-                        />
-                    ))
-                ) }
-            </div>
+            { (
+                products?.data.map((product: Product) => (
+                    <ProductCard
+                        key={ product.id }
+                        product={ product }
+                    />
+                ))
+            ) }
+        </div>
     );
 }
 
@@ -64,6 +70,10 @@ const ProductCard = ({ product }: { product: Product }) => (
 );
 
 async function getProducts() {
-    const res = await axios.get(`${HOST_URL}/products`);
-    return res.data;
+    try {
+        const res = await axios.get(`${HOST_URL}/products`);
+        return res.data;
+    } catch (error) {
+        return catchErrorResponse(error);
+    }
 }

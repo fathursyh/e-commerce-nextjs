@@ -11,7 +11,7 @@ const eslintConfig = defineConfig([
       "semi": ["error", "always"],
 
       "quotes": ["error", "double", { avoidEscape: true }],
-
+      "object-curly-spacing": ["error", "always"],
       "react/jsx-curly-spacing": ["error", {
         when: "always",
         children: true,

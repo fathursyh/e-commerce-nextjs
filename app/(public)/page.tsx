@@ -1,5 +1,5 @@
 import { Filter } from "lucide-react";
-import ProductLists from "../shared/components/ProductLists";
+import ProductLists from "../shared/components/product-list";
 import { Suspense } from "react";
 
 export default async function HomePage() {

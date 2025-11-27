@@ -5,9 +5,42 @@ import nextTs from "eslint-config-next/typescript";
 const eslintConfig = defineConfig([
   ...nextVitals,
   ...nextTs,
-  // Override default ignores of eslint-config-next.
+
+  {
+    rules: {
+      "semi": ["error", "always"],
+
+      "quotes": ["error", "double", { avoidEscape: true }],
+
+      "react/jsx-curly-spacing": ["error", {
+        when: "always",
+        children: true,
+      }],
+      "comma-dangle": ["error", "always-multiline"],
+
+      "react-hooks/rules-of-hooks": "error",
+
+      "react-hooks/exhaustive-deps": "warn",
+
+      "@typescript-eslint/no-unused-vars": [
+        "warn",
+        { argsIgnorePattern: "^_", varsIgnorePattern: "^_" },
+      ],
+
+      "@typescript-eslint/no-explicit-any": "warn",
+
+      "no-unused-vars": "off", // Disable base rule
+      "@typescript-eslint/no-unused-vars": ["warn"],
+
+      "react/self-closing-comp": "error",
+
+      "react/jsx-no-useless-fragment": "warn",
+
+      "react/react-in-jsx-scope": "off",
+    },
+  },
+
   globalIgnores([
-    // Default ignores of eslint-config-next:
     ".next/**",
     "out/**",
     "build/**",

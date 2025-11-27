@@ -1,5 +1,5 @@
 import { AxiosError } from "axios";
-import { PaginationResponse, SingleResponse } from "../shared/models";
+import type { PaginationResponse, SingleResponse } from "../shared/models";
 
 export function catchErrorResponse(error: unknown):
 SingleResponse<unknown> | PaginationResponse<unknown>
@@ -13,7 +13,7 @@ SingleResponse<unknown> | PaginationResponse<unknown>
     return {
         data: [],
         success: false,
-        pagination: {current_page: 0, last_page: 0, total: 0, from: 0, to: 0, per_page: 0},
+        pagination: { current_page: 0, last_page: 0, total: 0, from: 0, to: 0, per_page: 0 },
         message: message,
     };
 }

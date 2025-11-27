@@ -1,19 +1,28 @@
 "use client";
-import { Heart, Star } from "lucide-react";
+import { Heart, Search, Star } from "lucide-react";
 import Image from "next/image";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import axios from "axios";
-import { HOST_URL } from "@/app/utils/helper";
-import { PaginationResponse, Product } from "@/app/shared/models";
-import { catchErrorResponse } from "@/app/utils/error";
+import type { Product } from "@/app/shared/models";
+import { productQuery } from "@/app/api/product.api";
 
-export default function ProductLists() {
-    const { data: products } = useSuspenseQuery<PaginationResponse<Product>>({
-        queryKey: ["posts"],
-        queryFn: getProducts,
-        retryOnMount: true,
+export default function FeaturedProducts() {
+    const {
+        data: products,
+        refetch,
+    } = useSuspenseQuery({
+        queryKey: [productQuery.featured.key],
+        queryFn: productQuery.featured.get,
     });
-    if (!products.success) return null;
+
+    if (!products.success) {
+        refetch();
+        return (
+            <div className="h-32 w-full flex flex-col justify-center items-center gap-2">
+                <Search />
+                <p>Couldn&apos;t fetch products.</p>
+            </div>
+        );
+    }
     return (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
 
@@ -68,12 +77,3 @@ const ProductCard = ({ product }: { product: Product }) => (
         </div>
     </div>
 );
-
-async function getProducts() {
-    try {
-        const res = await axios.get(`${HOST_URL}/products`);
-        return res.data;
-    } catch (error) {
-        return catchErrorResponse(error);
-    }
-}

@@ -12,7 +12,7 @@ interface Pagination {
   to: number | null;
 };
 
-interface PaginationResponse<T> extends HttpResponse {
+interface ArrayResponse<T> extends HttpResponse {
   pagination: Pagination;
   data: T[];
 };
@@ -23,6 +23,6 @@ interface SingleResponse<T> extends HttpResponse {
 
 export type {
   HttpResponse,
-  PaginationResponse,
+  ArrayResponse,
   SingleResponse,
 };

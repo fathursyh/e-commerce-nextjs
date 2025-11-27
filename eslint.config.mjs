@@ -16,6 +16,13 @@ const eslintConfig = defineConfig([
         when: "always",
         children: true,
       }],
+      "@typescript-eslint/consistent-type-imports": [
+        "error",
+        {
+          prefer: "type-imports",
+          disallowTypeAnnotations: false,
+        },
+      ],
       "comma-dangle": ["error", "always-multiline"],
 
       "react-hooks/rules-of-hooks": "error",

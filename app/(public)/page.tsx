@@ -1,10 +1,10 @@
 import { Filter } from "lucide-react";
-import ProductLists from "../shared/components/product-list";
+import FeaturedProducts from "./components/featured-products";
 import { Suspense } from "react";
 
 export default async function HomePage() {
     return (
-        <div className="min-h-screen bg-base-100 font-sans pb-20">
+        <div className="min-h-screen bg-base-100 font-sans">
             <main className="container mx-auto px-4 pt-24">
                 <Hero />
                 { /* Filters / Header Section */ }
@@ -33,7 +33,7 @@ export default async function HomePage() {
                         }
                     </div>
                 }>
-                    <ProductLists />
+                    <FeaturedProducts />
                 </Suspense>
             </main>
 

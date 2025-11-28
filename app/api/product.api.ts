@@ -1,24 +1,25 @@
 import type { ArrayResponse, Product, SingleResponse } from "../shared/models";
 import { fetch, handledFetch, type QueryModel } from "./helper";
 
-const productQuery= {
-    /** Featured products */
+/** @instance Object containing products related api queries. */
+const PRODUCT_QUERY = {
+    /** @property Featured products. */
     featured: {
         key: "featured-products",
-        get: () => handledFetch<ArrayResponse<Product>>("/products/featured"),
+        call: () => handledFetch<ArrayResponse<Product>>("/products/featured"),
     },
-    /** All products */
+    /** @property All products. */
     all: {
         key: "all-products",
-        get: () => fetch<ArrayResponse<Product>>("/products"),
+        call: () => fetch<ArrayResponse<Product>>("/products"),
     },
-    /** Product detail by id */
+    /** @property Product detail by id. */
     detail: {
         key: "product-detail",
-        get: (id: string) => fetch<SingleResponse<Product>>("/products/" + id),
+        call: (id: string) => fetch<SingleResponse<Product>>("/products/" + id),
     },
 } satisfies Record<string, QueryModel>;
 
 export {
-    productQuery,
+    PRODUCT_QUERY,
 };

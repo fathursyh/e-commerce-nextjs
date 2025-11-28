@@ -3,17 +3,16 @@ import { Heart, Search, Star } from "lucide-react";
 import Image from "next/image";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import type { Product } from "@/app/shared/models";
-import { productQuery } from "@/app/api/product.api";
+import { PRODUCT_QUERY } from "@/app/api";
 
 export default function FeaturedProducts() {
     const {
         data: products,
         refetch,
     } = useSuspenseQuery({
-        queryKey: [productQuery.featured.key],
-        queryFn: productQuery.featured.get,
+        queryKey: [PRODUCT_QUERY.featured.key],
+        queryFn: PRODUCT_QUERY.featured.call,
     });
-
     if (!products.success) {
         refetch();
         return (

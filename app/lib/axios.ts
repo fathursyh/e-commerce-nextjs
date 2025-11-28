@@ -3,6 +3,7 @@ import { HOST_URL } from "../utils/helper";
 
 const api = axios.create({
   baseURL: HOST_URL,
+  withCredentials: true,
 });
 
 api.interceptors.request.use(

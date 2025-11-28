@@ -5,7 +5,7 @@ import { ShoppingCart } from "lucide-react";
 
 export default function CartHeader() {
     const { getTotalQty, items } = useCartStore(state => state);
-    return (
+      return (
         <div className="dropdown dropdown-end">
             <div tabIndex={ 0 } role="button" className="btn btn-ghost btn-circle">
                 <div className="indicator">

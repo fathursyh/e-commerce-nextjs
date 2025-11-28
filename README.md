@@ -1,36 +1,144 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# **E-Commerce Next**
 
-## Getting Started
+A solid and scalable **Next.js frontend** for an e-commerce platform.
+This project consumes APIs from a **Laravel backend** and includes both **storefront pages** and future-ready **admin functionalities**.
+The architecture focuses on clarity, modularity, and ease of understanding.
 
-First, run the development server:
+---
+
+## 🚀 **Tech Stack**
+
+* **Next.js** (App Router)
+* **TanStack Query** with SSR
+* **Zustand Persist** (Global client state)
+* **Axios API Layer**
+* **Clean folder structure with domain segmentation**
+
+---
+
+## ✨ **Features**
+
+* ⚡ **Modular and intuitive folder structure**
+* 🔥 **TanStack Query with SSR support**
+* 📦 **Zustand store with persistence**
+* 🌐 **Axios instance with abstraction helpers**
+* 🧩 **Reusable components and providers**
+* 🛒 **Cart store with global provider**
+* 💡 Designed for maintainability and readability
+
+---
+
+## 📁 **Project Structure**
+
+```
+app/
+ ├─ (public)/                # Public-facing routes using App Router
+ │   ├─ products/            # Products listing & detail pages
+ │   ├─ layout.tsx           # Layout for public pages
+ │   ├─ navbar.tsx           # Shared public navbar
+ │   └─ page.tsx             # Homepage
+ │
+ ├─ api/                     # API abstraction layer
+ │   ├─ auth.api.ts          # Auth-related API endpoints
+ │   ├─ helper.ts            # Small API helper utilities
+ │   ├─ index.ts             # Central API export
+ │   └─ product.api.ts       # Product-related API endpoints
+ │
+ ├─ hooks/                   # Reusable hooks (React + Query)
+ │
+ ├─ lib/
+ │   └─ axios.ts             # Axios instance + interceptors
+ │
+ ├─ providers/
+ │   └─ cart-store-provider.tsx  # Provides Zustand cart store to the app
+ │
+ ├─ shared/
+ │   ├─ components/          # UI components shared across features
+ │   └─ models/              # Shared TypeScript interfaces / DTOs
+ │
+ ├─ store/
+ │   └─ cart-store.ts        # Zustand store (persist enabled)
+ │
+ └─ utils/
+     ├─ error.ts             # Error handling helpers
+     └─ helper.ts            # General utility helpers
+```
+
+---
+
+## 🛠️ **Installation**
+
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
+```
+
+Dependencies used:
+
+```bash
+npm install @tanstack/react-query zustand axios
+npm install zustand/middleware
+```
+
+---
+
+## ▶️ **Usage**
+
+### Development Mode
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Build for Production
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run build
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Start Production Server
 
-## Learn More
+```bash
+npm start
+```
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🌐 **API Configuration**
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Configure your Laravel backend API:
 
-## Deploy on Vercel
+```
+HOST_URL=https://your-backend.com/api
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+All requests go through:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+lib/axios.ts
+```
+
+---
+
+## 🧭 **Roadmap**
+
+* [ ] Add admin routes & dashboard
+* [ ] Add login & protected route middleware
+* [ ] Cart checkout flow
+* [ ] Product filters & search
+* [ ] User order history
+* [ ] Improve error handling UX
+* [ ] Add unit + E2E tests
+* [ ] CI/CD & GitHub Actions
+* [ ] Add skeleton loaders and UI polish
+
+---
+
+## 📄 **License**
+
+Licensed under **MIT**.
+
+---

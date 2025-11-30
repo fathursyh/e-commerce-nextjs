@@ -1,9 +1,9 @@
-import { createStore } from "zustand/vanilla";
 import { persist, createJSONStorage } from "zustand/middleware";
 import { api } from "../lib/axios";
+import { create } from "zustand";
 
 export type CartItem = {
-  id: string;
+  id: string | number;
   title: string;
   price: number;
   quantity: number;
@@ -34,12 +34,12 @@ export const initCartStore = (): CartState => ({
   items: [],
 });
 
-export const defaultInitState: CartState = {
+const cartInitState: CartState = {
   items: [],
 };
 
-export const createCartStore = (initState: CartState = defaultInitState) =>
-  createStore<CartStore>()(
+export const createCartStore = (initState: CartState = cartInitState) =>
+  create<CartStore>()(
     persist(
       (set, get) => ({
         ...initState,
@@ -103,7 +103,6 @@ export const createCartStore = (initState: CartState = defaultInitState) =>
             console.error("Cart sync failed", err);
           }
         },
-
       }),
       {
         name: "user-cart",
@@ -111,6 +110,7 @@ export const createCartStore = (initState: CartState = defaultInitState) =>
         partialize: (state) => ({
           items: state.items,
         }),
+        skipHydration: true,
       },
     ),
   );

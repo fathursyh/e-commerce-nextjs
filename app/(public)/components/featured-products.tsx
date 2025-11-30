@@ -1,78 +1,47 @@
 "use client";
-import { Heart, Search, Star } from "lucide-react";
-import Image from "next/image";
-import { useSuspenseQuery } from "@tanstack/react-query";
-import type { Product } from "@/app/shared/models";
-import { PRODUCT_QUERY } from "@/app/api";
+
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
+import { ShoppingCart, Star } from "lucide-react";
 
 export default function FeaturedProducts() {
-    const {
-        data: products,
-        refetch,
-    } = useSuspenseQuery({
-        queryKey: [PRODUCT_QUERY.featured.key],
-        queryFn: PRODUCT_QUERY.featured.call,
-    });
-    if (!products.success) {
-        refetch();
-        return (
-            <div className="h-32 w-full flex flex-col justify-center items-center gap-2">
-                <Search />
-                <p>Couldn&apos;t fetch products.</p>
-            </div>
-        );
-    }
-    return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
 
-            { (
-                products?.data.map((product: Product) => (
-                    <ProductCard
-                        key={ product.id }
-                        product={ product }
-                    />
-                ))
-            ) }
-        </div>
-    );
+  return (
+    <section className="container mx-auto py-12 px-4 sm:px-6 lg:px-8">
+      <h2 className="text-3xl font-bold text-center mb-8">🔥 Featured Products</h2>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        { featuredProducts.map((product) => (
+          <Card key={ product.id } className="transition-shadow hover:shadow-lg">
+            <CardHeader className="p-0">
+              { /* Placeholder for Product Image */ }
+              <div className={ "h-48 rounded-t-lg flex items-center justify-center bg-gray-100 text-gray-500 italic" }>
+                 Product Image ({ product.image })
+              </div>
+            </CardHeader>
+            <CardContent className="p-4 space-y-2">
+              <h3 className="text-lg font-semibold truncate">{ product.name }</h3>
+              <div className="flex items-center text-sm text-yellow-500">
+                <Star className="w-4 h-4 fill-yellow-500 mr-1" />
+                <span>{ product.rating }</span>
+              </div>
+              <p className="text-2xl font-bold text-primary">${ product.price.toFixed(2) }</p>
+            </CardContent>
+            <CardFooter className="p-4 pt-0">
+              <Button className="w-full">
+                <ShoppingCart className="w-4 h-4 mr-2" />
+                Add to Cart
+              </Button>
+            </CardFooter>
+          </Card>
+        )) }
+      </div>
+    </section>
+  );
 }
 
-const ProductCard = ({ product }: { product: Product }) => (
-    <div className="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow duration-300 group">
-        <figure className="relative h-64 overflow-hidden">
-            <Image
-                src={ "https://cdn0-production-images-kly.akamaized.net/h9D1jOR9W_xMRWp4zOp1IGK371s=/500x667/smart/filters:quality(75):strip_icc()/kly-media-production/medias/5290158/original/010582300_1753091704-ChatGPT_Image_Jul_21__2025__04_42_16_PM.jpg" }
-                alt={ product.name }
-                width={ 1080 }
-                height={ 800 }
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-            />
-            <button className="absolute top-2 left-2 btn btn-circle btn-sm btn-ghost bg-base-100/50 hover:bg-base-100 text-red-500 opacity-0 group-hover:opacity-100 transition-opacity">
-                <Heart className="w-4 h-4" />
-            </button>
-        </figure>
-        <div className="card-body">
-            <div className="flex justify-between items-start">
-                <h2 className="card-title text-base">{ product.name }</h2>
-                <div className="flex items-center gap-1 text-yellow-500 text-sm font-semibold">
-                    <Star className="w-4 h-4 fill-current" />
-                    <span>8</span>
-                </div>
-            </div>
-            <p className="text-sm text-base-content/70 line-clamp-2">{ product.description }</p>
-
-            <div className="card-actions justify-start mt-2">
-                <div className="badge badge-outline">{ product.category?.name }</div>
-            </div>
-
-            <div className="flex items-center justify-between mt-auto pt-4">
-                <div className="text-xl font-bold text-primary">${ product.price.toFixed(2) }</div>
-                <button
-                    className="btn btn-primary btn-sm"
-                >
-                    Add to Cart
-                </button>
-            </div>
-        </div>
-    </div>
-);
+const featuredProducts = [
+  { id: 1, name: "Premium Wireless Headset", price: 129.99, rating: 4.5, image: "headset" },
+  { id: 2, name: "Slim Leather Wallet", price: 34.50, rating: 4.8, image: "wallet" },
+  { id: 3, name: "Vintage Camera Tripod", price: 59.99, rating: 4.2, image: "tripod" },
+  { id: 4, name: "Mechanical Keyboard RGB", price: 99.99, rating: 4.7, image: "keyboard" },
+];

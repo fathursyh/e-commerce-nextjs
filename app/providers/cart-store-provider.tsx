@@ -1,6 +1,6 @@
 "use client";
 
-import { type ReactNode, createContext, useRef, useContext } from "react";
+import { type ReactNode, createContext, useRef, useContext, useEffect } from "react";
 import { useStore } from "zustand";
 import {
   type CartStore,
@@ -24,6 +24,12 @@ export const CartStoreProvider = ({ children }: CartStoreProviderProps) => {
   if (storeRef.current === null) {
     storeRef.current = createCartStore(initCartStore());
   }
+
+  useEffect(() => {
+    if (storeRef.current) {
+      storeRef.current.persist.rehydrate();
+    }
+  }, []);
 
   return (
     // eslint-disable-next-line react-hooks/refs

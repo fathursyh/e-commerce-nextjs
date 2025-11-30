@@ -20,7 +20,6 @@ export interface Product {
   };
   category: Category | null;
   images: ProductImage[];
-  primary_image: ProductImage | null;
   created_at: string;
   updated_at: string;
 }
